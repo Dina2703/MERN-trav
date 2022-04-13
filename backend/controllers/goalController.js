@@ -2,7 +2,7 @@
 
 const asyncHandler = require("express-async-handler");
 
-//this Goal object has methods that we can use, like create() , find()
+//this Goal object has methods that we can use, like create() , find(), findByIdAndUpdate(), findById() ect
 const Goal = require("../models/goalModel");
 
 // @desc Get goals
@@ -36,7 +36,18 @@ const setGoals = asyncHandler(async (req, res) => {
 // @route PUT /api/goals/:id
 // @access Private
 const updateGoals = asyncHandler(async (req, res) => {
-  res.status(200).json({ mssg: `Update goal for ${req.params.id}` });
+  const goal = await Goal.findById(req.params.id);
+
+  if (!goal) {
+    res.status(400);
+    throw new Error("Goal not found!");
+  }
+
+  const updatedGoal = await Goal.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+  });
+
+  res.status(200).json(updatedGoal);
 });
 
 // @desc Delete goals
