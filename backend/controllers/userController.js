@@ -1,26 +1,48 @@
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
+const asyncHandler = require("express-async-handler");
+const User = require("../models/userModel");
 //@desc Register new user
 //@route POST /api/users
 //@access Public
-const registerUser = (req, res) => {
+const registerUser = asyncHandler(async (req, res) => {
+  const { name, email, password } = req.body;
+
+  if (!name || !email || !password) {
+    res.status(400);
+    throw new Error("Please add all fields");
+  }
+
+  //Check if User exists
+  const userExists = await User.findOne({ email });
+  if (userExists) {
+    res.status(400);
+    throw new Error("User already exists");
+  }
+
   res.json({ mssg: "Register User" });
-};
+});
 
 //@desc Authenticate a user
 //@route POST /api/users/login
 //@access Public
-const loginUser = (req, res) => {
+const loginUser = asyncHandler(async (req, res) => {
   res.json({ mssg: "Login User" });
-};
+});
 
 //@desc Get user data
 //@route GET /api/users/me
 //@access Private
-const getMe = (req, res) => {
+const getMe = asyncHandler(async (req, res) => {
   res.json({ mssg: "User data" });
-};
+});
 
 module.exports = {
   registerUser,
   loginUser,
   getMe,
 };
+
+//jwt, or JSON Web Token, is an open standard used to share security information between two parties — a client and a server
+
+//js uses “bcryptjs”. This module enables storing of passwords as hashed passwords instead of plaintext.
