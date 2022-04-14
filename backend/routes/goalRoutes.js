@@ -20,4 +20,8 @@ router.put("/:id", updateGoals);
 //DELETE request
 router.delete("/:id", deleteGoals);
 
+//short version for CRUD Api, instead of the writing single line for each request, we can combine them by a route.
+// router.route("/").get(getGoals).post(setGoals);
+// router.route("/:id").delete(deleteGoals).put(updateGoals);
+
 module.exports = router;
