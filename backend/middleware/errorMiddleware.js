@@ -1,3 +1,5 @@
+//MIDDLEWARE is a function that runs during the request and response cycle.
+
 //to override the default express error handler, we pass err, req, res, next objects.
 const errorHandler = (err, req, res, next) => {
   const statusCode = res.statusCode ? res.statusCode : 500;
