@@ -18,6 +18,20 @@ const register = async (userData) => {
   return response.data;
 };
 
+//Login user
+const login = async (userData) => {
+  //make a request and put the response into 'response' const.
+  const response = await axios.post(API_URL + "login", userData);
+
+  // when we use 'axios' it puts data inside of an objcet called 'data'.
+  if (response.data) {
+    //to put data to localStorage we need to stringify it.
+    localStorage.setItem("user", JSON.stringify(response.data));
+  }
+
+  return response.data;
+};
+
 //Logout user
 const logout = () => {
   localStorage.removeItem("user");
@@ -26,6 +40,7 @@ const logout = () => {
 const authService = {
   register,
   logout,
+  login,
 };
 
 export default authService;
