@@ -9,9 +9,11 @@ function GoalForm() {
 
   const onSubmit = (e) => {
     e.preventDefault();
+
     dispatch(createGoal({ text }));
     setText("");
   };
+
   return (
     <section className="form">
       <form onSubmit={onSubmit}>

@@ -1,7 +1,5 @@
 const mongoose = require("mongoose");
 
-//add 'user' props to Goal schema, it's allows us to have a user associated with a goal.
-
 const goalSchema = mongoose.Schema(
   {
     user: {
@@ -11,7 +9,7 @@ const goalSchema = mongoose.Schema(
     },
     text: {
       type: String,
-      require: [true, "Please add a text value"],
+      required: [true, "Please add a text value"],
     },
   },
   {

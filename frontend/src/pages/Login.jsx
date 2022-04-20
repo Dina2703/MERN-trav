@@ -17,7 +17,6 @@ function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  //destructure the form data from our state
   const { user, isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.auth
   );
@@ -26,6 +25,7 @@ function Login() {
     if (isError) {
       toast.error(message);
     }
+
     if (isSuccess || user) {
       navigate("/");
     }
@@ -42,10 +42,12 @@ function Login() {
 
   const onSubmit = (e) => {
     e.preventDefault();
+
     const userData = {
       email,
       password,
     };
+
     dispatch(login(userData));
   };
 
@@ -59,8 +61,9 @@ function Login() {
         <h1>
           <FaSignInAlt /> Login
         </h1>
-        <p>login and start setting goals</p>
+        <p>Login and start setting goals</p>
       </section>
+
       <section className="form">
         <form onSubmit={onSubmit}>
           <div className="form-group">
@@ -79,9 +82,9 @@ function Login() {
               type="password"
               className="form-control"
               id="password"
-              value={password}
               name="password"
-              placeholder="Enter your password"
+              value={password}
+              placeholder="Enter password"
               onChange={onChange}
             />
           </div>

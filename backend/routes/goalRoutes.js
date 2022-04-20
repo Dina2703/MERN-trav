@@ -1,29 +1,15 @@
 const express = require("express");
 const router = express.Router();
-
 const {
   getGoals,
-  setGoals,
-  updateGoals,
-  deleteGoals,
+  setGoal,
+  updateGoal,
+  deleteGoal,
 } = require("../controllers/goalController");
 
 const { protect } = require("../middleware/authMiddleware");
 
-//GET request
-router.get("/", protect, getGoals);
-
-//POST request
-router.post("/", protect, setGoals);
-
-//PUT request
-router.put("/:id", protect, updateGoals);
-
-//DELETE request
-router.delete("/:id", protect, deleteGoals);
-
-//short version for CRUD Api, instead of the writing single line for each request, we can combine them by a route.
-// router.route("/").get(getGoals).post(setGoals);
-// router.route("/:id").delete(deleteGoals).put(updateGoals);
+router.route("/").get(protect, getGoals).post(protect, setGoal);
+router.route("/:id").delete(protect, deleteGoal).put(protect, updateGoal);
 
 module.exports = router;
